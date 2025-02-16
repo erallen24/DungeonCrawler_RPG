@@ -21,15 +21,15 @@ void AAuraPlayerController::PlayerTick(float DeltaTime)
 
 void AAuraPlayerController::CursorTrace()
 {
+	// ~Line trace: Start
 	FHitResult CursorHit;
 	GetHitResultUnderCursor(ECC_Visibility, false, CursorHit);
 	if (!CursorHit.bBlockingHit) return;
-
 	LastActor = ThisActor;
 	ThisActor = CursorHit.GetActor();
-	
-	/**
-	 * Line trace from cursor scenerios:
+	/** ~Line trace: End
+	 * 
+	 * Result from line trace from cursor scenerios:
 	 * A. LastActor is null && ThisActor is null
 	 *	- Do nothing
 	 *	
@@ -45,7 +45,6 @@ void AAuraPlayerController::CursorTrace()
 	 * E. Both actor are valid, and are the same actor
 	 *	- Do nothing
 	 */
-
 	if (LastActor == nullptr) // LastActor is null
 	{
 		if (ThisActor != nullptr) // ThisActor is valid
@@ -86,12 +85,14 @@ void AAuraPlayerController::BeginPlay()
 	Super::BeginPlay();
 	check(AuraContext);
 
-	// Get the EnhancedInputLocalPlayerSubsystem and add an InputMappingContext.
+	// Get the EnhancedInputLocalPlayerSubsystem 
 	UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer());
 	check(Subsystem);
+	
+	// Add an InputMappingContext
 	Subsystem->AddMappingContext(AuraContext, 0);
 
-	// Define cursor behavior
+	// ~Define cursor behavior: Start
 	bShowMouseCursor = true;
 	DefaultMouseCursor = EMouseCursor::Default;
 	
@@ -99,6 +100,7 @@ void AAuraPlayerController::BeginPlay()
 	InputModeData.SetLockMouseToViewportBehavior(EMouseLockMode::DoNotLock);
 	InputModeData.SetHideCursorDuringCapture(false);
 	SetInputMode(InputModeData);
+	// ~Define cursor behavior: End
 }
 
 void AAuraPlayerController::SetupInputComponent()
@@ -114,7 +116,7 @@ void AAuraPlayerController::SetupInputComponent()
 
 void AAuraPlayerController::Move(const FInputActionValue& InputActionValue)
 {
-	// Player movement variables 
+	// ~Player movement: Start
 	const FVector2D InputAxisVector = InputActionValue.Get<FVector2D>();
 	const FRotator Rotation = GetControlRotation();
 	const FRotator YawRotation(0.f, Rotation.Yaw, 0.f);
@@ -128,6 +130,7 @@ void AAuraPlayerController::Move(const FInputActionValue& InputActionValue)
 		ControlledPawn->AddMovementInput(ForwardDirection, InputAxisVector.Y);
 		ControlledPawn->AddMovementInput(RightDirection, InputAxisVector.X);
 	}
+	// ~Player movement: End
 }
 
 
