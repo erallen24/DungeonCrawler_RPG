@@ -17,10 +17,10 @@ class DUNGEONCRAWLER_API AAuraEnemy : public AAuraCharacterBase, public IEnemyIn
 public:
 	AAuraEnemy();
 
-	// Enemy Interface 
+	// ~Enemy Interface: Start
 	virtual void HighlightActor() override;
 	virtual void UnHighlightActor() override;
-
+	// ~Enemy Interface: End
 
 protected:
 	virtual void BeginPlay() override;

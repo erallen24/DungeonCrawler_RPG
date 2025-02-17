@@ -16,7 +16,10 @@ class DUNGEONCRAWLER_API AAuraCharacterBase : public ACharacter, public IAbility
 	GENERATED_BODY()
 
 public:
+	//Constructor
 	AAuraCharacterBase();
+
+	// Override for AbilitySystemComponent
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
 	// Getter for AttributeSet
 	UAttributeSet* GetAttributeSet() const { return AttributeSet; }

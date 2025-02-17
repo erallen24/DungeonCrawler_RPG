@@ -15,6 +15,7 @@ class DUNGEONCRAWLER_API AAuraCharacter : public AAuraCharacterBase
 	GENERATED_BODY()
 
 public:
+	//Constructor
 	AAuraCharacter();
 
 	virtual void PossessedBy(AController* NewController) override;
