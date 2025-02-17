@@ -13,7 +13,7 @@
 	GAMEPLAYATTRIBUTE_VALUE_GETTER(PropertyName) \
 	GAMEPLAYATTRIBUTE_VALUE_SETTER(PropertyName) \
 	GAMEPLAYATTRIBUTE_VALUE_INITTER(PropertyName)
-// ~AttributeSet base class accessor macros: Start
+// ~AttributeSet base class accessor macros: End
 
 UCLASS()
 class DUNGEONCRAWLER_API UAura_AttributeSet : public UAttributeSet
