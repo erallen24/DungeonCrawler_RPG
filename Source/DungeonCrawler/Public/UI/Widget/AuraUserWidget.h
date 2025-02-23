@@ -14,13 +14,14 @@ class DUNGEONCRAWLER_API UAuraUserWidget : public UUserWidget
 {
 	GENERATED_BODY()
 public:
-	// Sets WidgetController and calls WidgetControllerSet event
+	// Setter
 	UFUNCTION(BlueprintCallable)
 	void SetWidgetController(UObject* InWidgetController);
 	
-	// Store a pointer to a WidgetController UObject
+	// ~Public member variables: Start
 	UPROPERTY(BlueprintReadOnly)
 	TObjectPtr<UObject> WidgetController;
+	// ~Public member variables: End
 
 protected:
 	// Event to trigger that the WidgetController has been set
