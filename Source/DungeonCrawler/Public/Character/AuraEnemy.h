@@ -15,6 +15,7 @@ class DUNGEONCRAWLER_API AAuraEnemy : public AAuraCharacterBase, public IEnemyIn
 {
 	GENERATED_BODY()
 public:
+	// Default constructor
 	AAuraEnemy();
 
 	// ~Enemy Interface: Start
@@ -23,5 +24,6 @@ public:
 	// ~Enemy Interface: End
 
 protected:
+	// Static override
 	virtual void BeginPlay() override;
 };

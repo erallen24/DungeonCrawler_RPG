@@ -18,8 +18,10 @@ public:
 	//Constructor
 	AAuraCharacter();
 
+	// Client and server calls
 	virtual void PossessedBy(AController* NewController) override;
 	virtual void OnRep_PlayerState() override;
 private:
+	// Methods
 	void InitAbilityActorInfo();	
 };

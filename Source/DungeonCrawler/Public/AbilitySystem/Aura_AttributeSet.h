@@ -22,7 +22,8 @@ class DUNGEONCRAWLER_API UAura_AttributeSet : public UAttributeSet
 public:
 	//Constructor
 	UAura_AttributeSet();
-	
+
+	// Methods
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
 	// ~Vital Attributes: Start

@@ -21,11 +21,14 @@ public:
 
 	// Override for AbilitySystemComponent
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
-	// Getter for AttributeSet
+	
+	// Getter 
 	UAttributeSet* GetAttributeSet() const { return AttributeSet; }
 protected:
+	// Static override
 	virtual void BeginPlay() override;
 
+	// ~Member variables: Start
 	UPROPERTY(EditAnywhere, Category = "Combat")
 	TObjectPtr<USkeletalMeshComponent> Weapon;
 
@@ -34,4 +37,5 @@ protected:
 
 	UPROPERTY()
 	TObjectPtr<UAttributeSet> AttributeSet;
+	// ~Member variables: End
 };

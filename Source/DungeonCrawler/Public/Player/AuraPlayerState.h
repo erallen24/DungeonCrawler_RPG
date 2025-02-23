@@ -18,17 +18,20 @@ class DUNGEONCRAWLER_API AAuraPlayerState : public APlayerState, public IAbility
 {
 	GENERATED_BODY()
 public:
+	// Default constructor
 	AAuraPlayerState();
-	//Override for AbilitySystemComponent
+	
+	//Static override (Getter)
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
 	
-	// Getter for AttributeSet
+	// Getter 
 	UAttributeSet* GetAttributeSet() const { return AttributeSet; };
 protected:
-	
+	// ~Member Variables: Start
 	UPROPERTY()
 	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
 
 	UPROPERTY()
 	TObjectPtr<UAttributeSet> AttributeSet;
+	// ~Member Variables: End
 };

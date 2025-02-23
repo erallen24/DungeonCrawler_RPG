@@ -15,7 +15,7 @@ AAuraCharacterBase::AAuraCharacterBase()
 	// ~Weapon socket: End
 }
 
-// Getter for AbilitySystemComponent
+// Getter 
 UAbilitySystemComponent* AAuraCharacterBase::GetAbilitySystemComponent() const
 {
 	return AbilitySystemComponent;
