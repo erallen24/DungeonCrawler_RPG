@@ -11,9 +11,10 @@ UOverlayWidgetController* AAuraHUD::GetOverlayWidgetController(const FWidgetCont
 	// nullptr check to ensure the OverlayWidgetController is set to a valid instance
 	if (OverlayWidgetController == nullptr)
 	{
-		// Create a new object of type OverlayWidgetController and pass in the WCParams using the setter 
+		// Create a new object of type OverlayWidgetController and pass in the WCParams using the setter, binding the attributes to the widget controller
 		OverlayWidgetController = NewObject<UOverlayWidgetController>(this, OverlayWidgetControllerClass);
 		OverlayWidgetController->SetWidgetControllerParams(WCParams);
+		OverlayWidgetController->BindCallbacksToDependencies();
 		
 		return OverlayWidgetController;
 	}
@@ -35,8 +36,9 @@ void AAuraHUD::InitOverlay(APlayerController* PC, APlayerState* PS, UAbilitySyst
 	// Store a ptr to an OverlayWidgetController using the getter passing in the WidgetControllerParams 
 	UOverlayWidgetController* WidgetController = GetOverlayWidgetController(WidgetControllerParams);
 
-	// Bind the WidgetController to the OverlayWidget using the setter 
-	OverlayWidget->SetWidgetController(WidgetController);	
+	// Bind the WidgetController to the OverlayWidget using the setter and broadcast the initial values 
+	OverlayWidget->SetWidgetController(WidgetController);
+	WidgetController->BroadcastInitialValues();
 
 	Widget->AddToViewport();
 	

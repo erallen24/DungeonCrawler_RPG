@@ -32,7 +32,7 @@ public:
 
 private:
 	
-	// ~Member variables: Start
+	// ~Private member variables: Start
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<UAuraUserWidget> OverlayWidgetClass;
 

@@ -8,10 +8,10 @@
 UAura_AttributeSet::UAura_AttributeSet()
 {
 	// ~Initialize attribute values: Start
-	InitHealth(100.0f);
+	InitHealth(50.0f);
 	InitMaxHealth(100.0f);
 	InitMana(100.0f);
-	InitMaxHealth(100.0f);
+	InitMaxMana(100.0f);
 	// ~Initialize attribute values: End
 }
 

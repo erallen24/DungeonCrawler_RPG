@@ -3,15 +3,36 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "AbilitySystem/Aura_AttributeSet.h"
 #include "UI/WidgetController/AuraWidgetController.h"
 #include "OverlayWidgetController.generated.h"
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnHealthChangedSignature, float, NewHealth);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnMaxHealthChangedSignature, float, NewMaxHealth);
 
 /**
  * 
  */
-UCLASS()
+UCLASS(Blueprintable, BlueprintType)
 class DUNGEONCRAWLER_API UOverlayWidgetController : public UAuraWidgetController
 {
 	GENERATED_BODY()
+public:
+	// Override AuraWidgetController base class method
+	virtual void BroadcastInitialValues() override;
+	virtual void BindCallbacksToDependencies() override;
+
+	// ~Public member variables: Start
+	UPROPERTY(BlueprintAssignable, Category = "GAS|Attributes")
+	FOnHealthChangedSignature OnHealthChanged;
+
+	UPROPERTY(BlueprintAssignable, Category = "GAS|Attributes")
+	FOnMaxHealthChangedSignature OnMaxHealthChanged;
+	// ~Public member variables: End
+
+protected:
+	void HealthChanged(const FOnAttributeChangeData& Data) const;
+	void MaxHealthChanged(const FOnAttributeChangeData& Data) const;
+	
 	
 };
