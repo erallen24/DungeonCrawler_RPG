@@ -3,9 +3,10 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Components/SphereComponent.h"
 #include "GameFramework/Actor.h"
 #include "AuraEffectActor.generated.h"
+
+class UGameplayEffect;
 
 UCLASS()
 class DUNGEONCRAWLER_API AAuraEffectActor : public AActor
@@ -16,25 +17,19 @@ public:
 	// Default constructor
 	AAuraEffectActor();
 
-	// ~Static methods: Start
-	UFUNCTION()
-	virtual void OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
-
-	UFUNCTION()
-	virtual void EndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
-	// ~Static methods: End
-	
 protected:
-	// Static method
+	// ~Methods: Start
 	virtual void BeginPlay() override;
-private:
-	// ~Member variables: Start
-	UPROPERTY(VisibleAnywhere)
-	TObjectPtr<USphereComponent> Sphere;
+
+	UFUNCTION(BlueprintCallable)
+	void ApplyEffectToTarget(AActor* Target, TSubclassOf<UGameplayEffect> GameplayEffectClass);
+	// ~Methods: End
+
+	// Member variable
+	UPROPERTY(EditAnywhere, Category = "Applied Effects")
+	TSubclassOf<UGameplayEffect> InstantGameplayEffectClass;
+
 	
-	UPROPERTY(VisibleAnywhere)
-	TObjectPtr<UStaticMeshComponent> Mesh;
-	// ~Member variables: End
 
 
 };

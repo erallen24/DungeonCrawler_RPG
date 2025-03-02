@@ -2,57 +2,35 @@
 
 
 #include "Actor/AuraEffectActor.h"
-
+#include "AbilitySystemBlueprintLibrary.h"
 #include "AbilitySystemComponent.h"
-#include "AbilitySystemInterface.h"
-#include "AbilitySystem/Aura_AttributeSet.h"
-#include "Components/SphereComponent.h"
 
-// Sets default values
 AAuraEffectActor::AAuraEffectActor()
 {
- 
 	PrimaryActorTick.bCanEverTick = false;
-
-	// Create static mesh and set it to the root component
-	Mesh = CreateDefaultSubobject<UStaticMeshComponent>("Mesh");
-	SetRootComponent(Mesh);
-
-	// Create a sphere component and attatch it to the root component
-	Sphere = CreateDefaultSubobject<USphereComponent>("Sphere");
-	Sphere->SetupAttachment(GetRootComponent());
-}
-
-void AAuraEffectActor::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
-	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
-{
-	// if the ASCInterface is not null
-	if (IAbilitySystemInterface* ASCInterface = Cast<IAbilitySystemInterface>(OtherActor))
-	{
-		// Get the AttributeSet of the other actor
-		const UAura_AttributeSet* AuraAttributeSet = Cast<UAura_AttributeSet>(ASCInterface->GetAbilitySystemComponent()->GetAttributeSet(UAura_AttributeSet::StaticClass()));
-		
-		// TODO: Change this to apply Gameplay Effect. For now, using const_cast. ONLY DO THIS FOR TESTING!
-		// Update Attributes
-		UAura_AttributeSet* MutableAuraAttributeSet= const_cast<UAura_AttributeSet*>(AuraAttributeSet);
-		MutableAuraAttributeSet->SetHealth(AuraAttributeSet->GetHealth() + 25.0f);
-		Destroy();
-	}
-}
-
-void AAuraEffectActor::EndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
-	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
-{
-	
+	SetRootComponent(CreateDefaultSubobject<USceneComponent> ("SceneRoot"));
 }
 
 void AAuraEffectActor::BeginPlay()
 {
 	Super::BeginPlay();
+	
+}
 
-	// Bind Overlap Event to sphere object 
-	Sphere->OnComponentBeginOverlap.AddDynamic(this, &AAuraEffectActor::OnOverlap);
-	Sphere->OnComponentEndOverlap.AddDynamic(this, &AAuraEffectActor::EndOverlap);
+void AAuraEffectActor::ApplyEffectToTarget(AActor* Target, TSubclassOf<UGameplayEffect> GameplayEffectClass)
+{
+	// Get a ptr to the AbilitySystemComponent and null check it
+	UAbilitySystemComponent* TargetASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(Target);
+	if (TargetASC == nullptr) return;
+
+	// Crash if there is no GameplayEffectClass
+	check(GameplayEffectClass);
+	
+	// Using the GAS library, get the outgoing data from the AbilitySystemComponent and apply it to self
+	FGameplayEffectContextHandle EffectContextHandle = TargetASC->MakeEffectContext();
+	EffectContextHandle.AddSourceObject(this);
+	const FGameplayEffectSpecHandle EffectSpecHandle = TargetASC->MakeOutgoingSpec(GameplayEffectClass, 1.0f, EffectContextHandle);
+	TargetASC->ApplyGameplayEffectSpecToSelf(*EffectSpecHandle.Data.Get());
 }
 
 
