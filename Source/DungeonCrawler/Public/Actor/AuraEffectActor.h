@@ -36,7 +36,7 @@ public:
 	AAuraEffectActor();
 
 protected:
-	// ~Methods: Start
+	// ~Functions: Start
 	virtual void BeginPlay() override;
 
 	UFUNCTION(BlueprintCallable)
@@ -47,9 +47,9 @@ protected:
 	
 	UFUNCTION(BlueprintCallable)
 	void OnEndOverlap(AActor* TargetActor);
-	// ~Methods: End
+	// ~Functions: End
 
-	// ~Member variables: Start
+	// ~Member fields: Start
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Applied Effects")
 	bool bDestroyOnEffectRemoval = false;
 	
@@ -75,6 +75,6 @@ protected:
 	EEffectRemovalPolicy InfiniteEffectRemovalPolicy = EEffectRemovalPolicy::RemoveOnEndOverlap;
 
 	TMap<FActiveGameplayEffectHandle, UAbilitySystemComponent*> ActiveEffectHandles;
-	// ~Member variables: End
+	// ~Member fields: End
 
 };
