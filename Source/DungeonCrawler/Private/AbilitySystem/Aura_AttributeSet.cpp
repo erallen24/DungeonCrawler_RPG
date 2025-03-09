@@ -8,7 +8,7 @@
 
 #include "GameplayEffectExtension.h"
 #include "Net/UnrealNetwork.h"
-
+ 
 
 
 UAura_AttributeSet::UAura_AttributeSet()
