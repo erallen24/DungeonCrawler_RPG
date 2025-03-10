@@ -5,7 +5,6 @@
 #include "CoreMinimal.h"
 #include "AttributeSet.h"
 #include "AbilitySystemComponent.h"
-#include "GameplayEffectExtension.h"
 #include "Aura_AttributeSet.generated.h"
 
 // ~AttributeSet base class accessor macros: Start
